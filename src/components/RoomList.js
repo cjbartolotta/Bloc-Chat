@@ -21,12 +21,25 @@ export default class RoomList extends Component {
       })
     }
 
+    createRoom(newRoomName) {
+      this.roomsRef.push({
+        name:newRoomName
+      })
+    }
+
     render() {
       return (
         this.state.rooms.map( (room, index) =>
           <div>
            {room.name}
-          </div> )
+          </div> ),
+        <form onSubmit={this.createRoom()}>
+           <label>
+             New Room Name:
+             <input type="text" name="name" />
+             <input type="submit" value="submit" />
+           </label>
+        </form>
       )
     }
 }
