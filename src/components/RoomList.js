@@ -20,7 +20,6 @@ export default class RoomList extends Component {
   }
 
     componentDidMount() {
-      console.log('Hello World')
       this.roomsRef.on('child_added', snapshot => {
         const room = snapshot.val();
         room.key = snapshot.key;
@@ -39,24 +38,31 @@ export default class RoomList extends Component {
     }
 
     handleSubmit(event) {
-      this.createRoom();
       event.preventDefault();
+      const roomName = event.target.value;
+      this.createRoom(roomName);
     }
 
     render() {
+      const rooms = this.state.rooms.map(room => {
+        return (
+          <p>{room}</p>
+        );
+      })
+      console.log({rooms});
       return (
         this.state.rooms.map( (room, index) =>
           <div>
            {room.name}
           </div> ),
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
            <label>
              New Room Name:
-             <input type="text" name="name" value={this.state.value} onChange={this.handleChange} />
+             <input type="text" name="name" value={this.state.value} onChange={(e) => this.handleChange(e)} />
            </label>
              <input type="submit" value="submit" />
-
         </form>
+
       )
     }
 }
