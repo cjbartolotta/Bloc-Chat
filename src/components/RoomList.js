@@ -6,8 +6,15 @@ export default class RoomList extends Component {
     super(props);
 
     this.state = {
-      rooms: []
+      rooms: [],
+      value: ''
     };
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+
+    this.createRoom = this.createRoom.bind(this);
 
     this.roomsRef = this.props.firebase.database().ref('rooms');
   }
@@ -21,10 +28,19 @@ export default class RoomList extends Component {
       })
     }
 
-    createRoom(newRoomName) {
+    createRoom(name) {
       this.roomsRef.push({
-        name:newRoomName
-      })
+        name:name
+      });
+    }
+
+    handleChange(event) {
+      this.setState({value: event.target.value});
+    }
+
+    handleSubmit(event) {
+      this.createRoom();
+      event.preventDefault();
     }
 
     render() {
@@ -33,12 +49,13 @@ export default class RoomList extends Component {
           <div>
            {room.name}
           </div> ),
-        <form onSubmit={this.createRoom()}>
+        <form onSubmit={this.handleSubmit}>
            <label>
              New Room Name:
-             <input type="text" name="name" />
-             <input type="submit" value="submit" />
+             <input type="text" name="name" value={this.state.value} onChange={this.handleChange} />
            </label>
+             <input type="submit" value="submit" />
+
         </form>
       )
     }
