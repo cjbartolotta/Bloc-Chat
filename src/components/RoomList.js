@@ -44,17 +44,14 @@ export default class RoomList extends Component {
     }
 
     render() {
-      const rooms = this.state.rooms.map(room => {
-        return (
-          <p>{room}</p>
-        );
-      })
-      console.log({rooms});
       return (
+        <div className="room-list">
+        {
         this.state.rooms.map( (room, index) =>
-          <div>
+          <div key={index}>
            {room.name}
-          </div> ),
+          </div>)
+        }
         <form onSubmit={(e) => this.handleSubmit(e)}>
            <label>
              New Room Name:
@@ -62,6 +59,7 @@ export default class RoomList extends Component {
            </label>
              <input type="submit" value="submit" />
         </form>
+        </div>
 
       )
     }
