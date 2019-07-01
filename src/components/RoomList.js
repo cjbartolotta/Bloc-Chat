@@ -39,7 +39,7 @@ export default class RoomList extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      const roomName = event.target.value;
+      const roomName = this.state.value;
       this.createRoom(roomName);
     }
 
