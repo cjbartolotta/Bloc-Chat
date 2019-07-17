@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import RoomList from './components/RoomList'
+import MessageList from './components/MessageList'
 import logo from './logo.svg';
 import './App.css';
 import * as firebase from 'firebase';
@@ -20,16 +21,25 @@ import * as firebase from 'firebase';
   firebase.initializeApp(firebaseConfig);
 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <RoomList firebase={firebase}>
-        </RoomList>
-      </header>
-    </div>
+
+  class App extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        activeRoom: null
+      }
+
+    render() {
+      return (
+        <div className="App">
+         <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <RoomList firebase={firebase}>
+          </RoomList>
+         </header>
+       </div>
   );
+ }
 }
 
 export default App;
